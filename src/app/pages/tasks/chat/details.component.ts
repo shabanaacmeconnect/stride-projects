@@ -71,11 +71,12 @@ selectFile(){
  * Save the message in chat
  */
  onFileSelected(event) {
-  if(event.target.files[0].type=='image/png' || event.target.files[0].type=='image/jpg' || event.target.files[0].type=='image/jpeg'){
+   console.log(event.target.files[0].type)
+  if(event.target.files[0].type=='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'||event.target.files[0].type=='application/vnd.openxmlformats-officedocument.wordprocessingml.document'||event.target.files[0].type=='application/pdf'|| event.target.files[0].type=='image/png' || event.target.files[0].type=='image/jpg' || event.target.files[0].type=='image/jpeg'){
      this.imageType=true;
     }else{
      this.imageType=false;
-     Swal.fire('Error!', 'Invalid Image ', 'error');
+     Swal.fire('Error!', 'Invalid File ', 'error');
      return;
   }if( event.target.files[0].size>2000000){
     this.sizeError=true;
