@@ -34,7 +34,7 @@
                       <a *ngIf="data.type==2 && !getType(data.mimetype)" [href]="data.attachment_path" download=true><i class="bx bx-file font-size-20"></i></a>
                       <a *ngIf="data.type==2 && getType(data.mimetype)" [href]="data.attachment_path" download=true><img [src]="data.attachment_path" width=150 /></a>
                         
-                      <p class="chat-time mb-0"><i class="bx bx-time-five align-middle mr-1"></i>{{data.created_at |date: 'medium'}}</p>
+                      <p class="chat-time mb-0"><i class="bx bx-time-five align-middle me-1"></i>{{data.created_at |date: 'medium'}}</p>
                     </div>
 
                   </div>
@@ -69,7 +69,7 @@
               </div>
               <div class="col-auto">
                 <button type="submit" class="btn btn-primary btn-rounded chat-send w-md"><span
-                    class="d-none d-sm-inline-block mr-2">Send</span> <i class="ml-2 mdi mdi-send"></i></button>
+                    class="d-none d-sm-inline-block me-2">Send</span> <i class="ms-2 mdi mdi-send"></i></button>
               </div>
             </form>
           </div>
