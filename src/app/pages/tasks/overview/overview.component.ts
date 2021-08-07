@@ -29,10 +29,7 @@ export class OverviewComponent implements OnInit {
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get("task_id")?this.route.snapshot.paramMap.get("task_id"):'';
     this.pro_id = this.route.snapshot.paramMap.get("id")?this.route.snapshot.paramMap.get("id"):'';
-    setTimeout(()=>{
       this.breadCrumbItems = [{ label: 'Projects', href:'/projects'  },{ label: 'Project Details' , href:'/projects/view/'+this.pro_id },{ label: 'Task Details', active: true }];
-      console.log(this.breadCrumbItems)
-    },1000)
     if(this.id){
       this.getDetails()
     }
