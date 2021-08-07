@@ -1,0 +1,136 @@
+<div class="container-fluid">
+  <app-page-title title="{{title}}" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="card">
+        <div class="card-body">
+          <div class="media">
+            <!-- <img src="assets/images/companies/img-1.png" alt="" class="avatar-sm me-4"> -->
+
+            <div class="media-body overflow-hidden">
+              <h5 class="text-truncate font-size-15">{{task.task_name}}</h5>
+              <!-- <p class="text-muted">Separate existence is a myth. For science, music, sport, etc.</p> -->
+            </div>
+          </div>
+
+          <h5 class="font-size-15 mt-4">Task Details :</h5>
+
+          <p class="text-muted"><span innerHTML="{{task.task_description}}"></span></p>
+
+          <!-- <div class="text-muted mt-4">
+            <p><i class="mdi mdi-chevron-right text-primary me-1"></i> To achieve this, it would be necessary</p>
+            <p><i class="mdi mdi-chevron-right text-primary me-1"></i> Separate existence is a myth.</p>
+            <p><i class="mdi mdi-chevron-right text-primary me-1"></i> If several languages coalesce</p>
+          </div> -->
+
+          <div class="row task-dates">
+            <div class="col-sm-4 col-6">
+              <div class="mt-4">
+                <h5 class="font-size-14"><i class="bx bx-calendar me-1 text-primary"></i> Start Date</h5>
+                <p class="text-muted mb-0">{{task.created_at |date}}</p>
+              </div>
+            </div>
+
+            <div class="col-sm-4 col-6">
+              <div class="mt-4">
+                <h5 class="font-size-14"><i class="bx bx-calendar-check me-1 text-primary"></i> Due Date</h5>
+                <p class="text-muted mb-0">{{task.end_date |date}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end col -->
+
+    <!-- end col -->
+  </div>
+  <!-- end row -->
+  <div class="row">
+    <div class="col-lg-4">
+
+      <ul class="timeline">
+        <li class="timeline-item bg-white rounded ml-3 p-4 shadow" *ngFor="let h of history">
+          <div class="timeline-arrow"></div>
+          <h2 class="h5 mb-0">Task {{h.status_name}}</h2><span class="small text-gray"><i class="fa fa-clock-o mr-1"></i>
+          {{h.created_at |date}}
+          </span>
+          <p class="text-small mt-2 font-weight-light">
+            Type: {{h.type_name}}
+          </p>
+          <p class="text-small mt-2 font-weight-light">
+            Updated By: {{h.created_by}}
+          </p>
+        </li>
+        
+      </ul>
+    </div>
+    <div class="col-lg-8">
+        <app-task-comments [task_id]="id" [comments]="comments"></app-task-comments>
+        <!-- <div class="chat-conversation p-3">
+            <ul class="list-unstyled">
+              <li>
+                <div class="chat-day-title">
+                  <span class="title">Today</span>
+                </div>
+              </li>
+            
+                <div class="conversation-list">
+                  <div class="dropdown" ngbDropdown>
+
+                    <a class="dropdown-toggle" href="javascript: void(0);" role="button" ngbDropdownToggle>
+                      <i class="bx bx-dots-vertical-rounded"></i>
+                    </a>
+                    <div class="dropdown-menu" ngbDropdownMenu>
+                      <a class="dropdown-item" href="javascript: void(0);">Copy</a>
+                      <a class="dropdown-item" href="javascript: void(0);">Save</a>
+                      <a class="dropdown-item" href="javascript: void(0);">Forward</a>
+                      <a class="dropdown-item" href="javascript: void(0);">Delete</a>
+                    </div>
+                  </div>
+                  <div class="ctext-wrap">
+                    <div class="conversation-name">}</div>
+                    <p>
+                      
+                    </p>
+                    <p class="chat-time mb-0"><i class="bx bx-time-five align-middle me-1"></i> </p>
+                  </div>
+
+                </div>
+               </li> 
+            </ul>
+        </div>
+        <div class="p-3 chat-input-section">
+
+          <form  class="row">
+            <div class="col">
+              <div class="position-relative">
+                <input type="text" class="form-control chat-input" placeholder="Enter Message..."
+                 >
+                <div *ngIf="chatSubmit && form.message.errors" class="invalid-feedback">
+                  <span *ngIf="form.message.errors.required">This value is required.</span>
+                </div>
+                <div class="chat-input-links">
+                  <ul class="list-inline mb-0">
+                    <li class="list-inline-item"><a href="javascript: void(0);" data-toggle="tooltip" placement="top"
+                        ngbTooltip="Emoji"><i class="mdi mdi-emoticon-happy-outline"></i></a></li>
+                    <li class="list-inline-item"><a href="javascript: void(0);" data-toggle="tooltip" placement="top"
+                        ngbTooltip="Images"><i class="mdi mdi-file-image-outline"></i></a></li>
+                    <li class="list-inline-item"><a href="javascript: void(0);" data-toggle="tooltip" placement="top"
+                        ngbTooltip="Add Files"><i class="mdi mdi-file-document-outline"></i></a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-auto">
+              <button type="submit" class="btn btn-primary btn-rounded chat-send w-md"><span
+                  class="d-none d-sm-inline-block me-2">Send</span> <i class="mdi mdi-send"></i></button>
+            </div>
+          </form>
+        </div> -->
+    </div>
+  </div>
+
+
+</div>

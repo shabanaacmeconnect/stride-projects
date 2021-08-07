@@ -1,0 +1,179 @@
+<div class="container-fluid">
+
+    <app-page-title title="User Management" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  
+    <div class="row">
+      <div class="col-12">
+            <div class="row">
+              <div class="col-md-4">
+                 <div class="form-group">
+                   <label>Search</label>
+                   <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="keyword" (keyup)="search()"/>
+                 </div>
+               </div>
+             
+               <div class="col-md-8">
+                 <div class="form-group">
+                   <label style="visibility: hidden;">report</label>
+                   <div>
+                   <div class="text-end">
+                     <button type="button" class="btn btn-primary mb-2"  (click)="largeModal(largeDataModal)">
+                       <i class="mdi mdi-plus mr-1"></i> New User
+                     </button>
+                   </div>
+                 </div>
+                 </div>
+               </div>
+               
+             </div>
+             <div class="table-responsive"  scrollTracker (scrollingFinished)="onScrollingFinished()">
+              <table class="table project-list-table table-nowrap align-middle table-borderless">
+                <thead>
+                  <tr>
+                    <th   scope="col">Name</th>
+                    <!-- <th >Contact Name</th> -->
+                    <th  scope="col">Email</th>
+                    <th  scope="col">Phone No.</th>
+                    <th  scope="col" class="text-center">Status</th>
+                    <th  scope="col" class="text-center">Edit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let merchants of merchantsData ">
+                    <td >{{merchants.name}}</td>
+                    <!-- <td >{{merchants.contact_name}}</td> -->
+                    <td >{{merchants.email}}</td>
+                    <td >{{merchants.mobile}}</td>
+                    <td  class="text-center">
+                      <ui-switch defaultBoColor="#556ee6" size="small" (change)="toggleFunction($event,merchants.user_id)" [checked]="!merchants.user_status" [id]="merchants.user_id"></ui-switch>
+                      <!-- <div class="custom-control custom-switch mb-2" dir="ltr">
+                      <input type="checkbox" class="custom-control-input" id="customSwitch1" (change)="toggleFunction($event,merchants.user_id)" [checked]="!merchants.user_status" [id]="merchants.user_id">
+                      <label class="custom-control-label" [for]="merchants.user_id"></label> -->
+                    <!-- </div> -->
+                  </td>
+                  
+                    <td  class="text-center">
+                      <div placement="bottom-right">
+                        <a href="javascript: void(0);"  (click)="editModal(largeDataModal,merchants)"><i
+                          class="bx bx-pencil text-success mr-2 font-size-20"></i>
+                        </a>
+                       
+                        
+                        <!-- <a href="javascript: void(0);"  (click)="deleteRow(merchants)"><i
+                          class="fas fa-trash-alt text-danger " ></i>
+                        </a> -->
+                       
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+      </div>
+    </div>
+    <!-- end row -->
+    <div class="row" *ngIf="loading">
+      <div class="col-12">
+        <div class="text-center my-3">
+          <a href="javascript:void(0);" class="text-success">
+            <i class="bx bx-loader bx-spin font-size-18 align-middle mr-2"></i> Load more
+          </a>
+        </div>
+      </div>
+      <!-- end col-->
+    </div>
+  </div>
+  <ng-template #largeDataModal let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title mt-0">{{title}} User</h5>
+      <button type="button"  class="btn-close" aria-label="Close" (click)="modal.dismiss('Close click')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-body">
+              <form (ngSubmit)="typeSubmit()" [formGroup]="typeValidationForm">
+                <div class="form-group">
+                  <label>Name</label>
+                  <input type="text" class="form-control" formControlName="name"
+                    [ngClass]="{'is-invalid': typesubmit && type.name.errors}"/>
+                  <div *ngIf="typesubmit && type.name.errors" class="invalid-feedback">
+                    <span *ngIf="type.name.errors.required"> Name is required.</span>
+                  </div>
+                </div>
+                <!-- <div class="form-group">
+                  <label>Contact Name</label>
+                  <input type="text" class="form-control" formControlName="contact_name"
+                    [ngClass]="{'is-invalid': typesubmit && type.contact_name.errors}"  />
+                  <div *ngIf="typesubmit && type.contact_name.errors" class="invalid-feedback">
+                    <span *ngIf="type.contact_name.errors.required"> Contact Name is required.</span>
+                  </div>
+                </div> -->
+                <div class="form-group" *ngIf="title=='Add'">
+                  <label>E-Mail</label>
+                  <div>
+                    <input type="email" class="form-control" formControlName="email" autocomplete="off" 
+                      [ngClass]="{'is-invalid': typesubmit && type.email.errors}" />
+                    <div *ngIf="typesubmit && type.email.errors" class="invalid-feedback">
+                      <span *ngIf="type.email.errors.required">Email is required.</span>
+                      <span *ngIf="type.email.errors.pattern">Email should be a valid email.</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Mobile Number</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="validationTooltipUsernamePrepend">+971</span>
+                    </div>
+                    <input type="text" class="form-control" formControlName="mobile"
+                      [ngClass]="{'is-invalid': typesubmit && type.mobile.errors}"  />
+                    <div *ngIf="typesubmit && type.mobile.errors" class="invalid-feedback">
+                      <span *ngIf="type.mobile.errors.required">Mobile number is required.</span>
+                      <span *ngIf="type.mobile.errors.pattern">Mobile number should be a valid one.</span>
+                    </div>
+                    </div>
+                </div>
+              
+                <div class="form-group">
+                  <label>Password</label>
+                  <div>
+                    <input type="password" class="form-control"autocomplete="new-password" maxlength="50" formControlName="password"
+                      [ngClass]="{'is-invalid': typesubmit && type.password.errors}" />
+                    <div *ngIf="typesubmit && type.password.errors" class="invalid-feedback">
+                      <span *ngIf="type.password.errors.required">Password is required.</span>
+                      <span *ngIf="type.password.errors.minlength">Password must be at least 10
+                        characters.</span>
+                        <span *ngIf="type.password.errors.pattern"> Password must contain alphabetics,numbers and special charactes !</span>
+                    </div>
+                  </div>
+                  <div class="mt-2">
+                    <input type="password" class="form-control" placeholder="Re-Type Password" formControlName="confirmpwd"
+                      [ngClass]="{'is-invalid': typesubmit && type.confirmpwd.errors}" />
+                    <div *ngIf="typesubmit && type.confirmpwd.errors" class="invalid-feedback">
+                      <span *ngIf="type.confirmpwd.errors.required">This value is required.</span>
+                      <span *ngIf="type.confirmpwd.errors.mustMatch">This value should be the same.</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group mb-0 text-end">
+                  <div>
+                    <button type="submit" class="btn btn-primary mr-1">
+                      Submit
+                    </button>
+                    <button type="reset" class="btn btn-secondary">
+                      Reset
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+    
+       
+      </div>
+    </div>
+  </ng-template>
+  

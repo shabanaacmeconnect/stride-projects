@@ -1,0 +1,79 @@
+
+        <div class="card">
+          <div class="chat-conversation p-3">
+            <ul class="list-unstyled">
+
+            <perfect-scrollbar  class="scroll mb-3" [config]="{suppressScrollX: true, wheelPropagation: false}"  style="height:500px" #scroll>
+                <!-- <li>
+                  <div class="chat-day-title">
+                    <span class="title">Today</span>
+                  </div>
+                </li> -->
+                <li *ngFor="let data of chatMessagesData" [ngClass]="
+              {
+                'right': data.align === 'right'
+              }">
+                  <div class="conversation-list">
+                    <!-- <div class="dropdown" ngbDropdown>
+
+                      <a class="dropdown-toggle" href="javascript: void(0);" role="button" ngbDropdownToggle>
+                        <i class="bx bx-dots-vertical-rounded"></i>
+                      </a>
+                      <div class="dropdown-menu" ngbDropdownMenu>
+                        <a class="dropdown-item" href="javascript: void(0);">Copy</a>
+                        <a class="dropdown-item" href="javascript: void(0);">Save</a>
+                        <a class="dropdown-item" href="javascript: void(0);">Forward</a>
+                        <a class="dropdown-item" href="javascript: void(0);">Delete</a>
+                      </div>
+                    </div> -->
+                    <div class="ctext-wrap" >
+                      <div class="conversation-name"> {{data.comment_by}}</div>
+                      <p *ngIf="data.type==1">
+                        {{data.comment}}
+                      </p>
+                      <a *ngIf="data.type==2 && !getType(data.mimetype)" [href]="data.attachment_path" download=true><i class="bx bx-file font-size-20"></i></a>
+                      <a *ngIf="data.type==2 && getType(data.mimetype)" [href]="data.attachment_path" download=true><img [src]="data.attachment_path" width=150 /></a>
+                        
+                      <p class="chat-time mb-0"><i class="bx bx-time-five align-middle mr-1"></i>{{data.created_at |date: 'medium'}}</p>
+                    </div>
+
+                  </div>
+                </li>
+            </perfect-scrollbar>
+          </ul>
+
+          </div>
+          <div class="p-3 chat-input-section">
+            <form (ngSubmit)="messageSave()" [formGroup]="formData" class="row">
+              <div class="col">
+                <div class="position-relative">
+                  <input type="text" class="form-control chat-input" placeholder="Enter Message..."
+                    formControlName="message" [ngClass]="{'is-invalid': chatSubmit && form.message.errors}">
+                  <div *ngIf="chatSubmit && form.message.errors &&type==1" class="invalid-feedback">
+                    <span *ngIf="form.message.errors.required">This value is required.</span>
+                  </div>
+                  <div class="chat-input-links">
+                    <ul class="list-inline mb-0">
+                      <!-- <li class="list-inline-item"><a href="javascript: void(0);" data-toggle="tooltip" placement="top"
+                          ngbTooltip="Emoji"><i class="mdi mdi-emoticon-happy-outline"></i></a></li> -->
+                      <!-- <li class="list-inline-item"><a href="javascript: void(0);" data-toggle="tooltip" placement="top"
+                          ngbTooltip="Images"><i class="mdi mdi-file-image-outline"></i></a></li> -->
+                      <li class="list-inline-item"><a href="javascript: void(0);" data-toggle="tooltip" placement="top"
+                          ngbTooltip="Add Files" (click)="selectFile()">
+                          <input #fileInput type='file' id="file" (click)="fileInput.value = null" (change)="onFileSelected($event)"  hidden/>
+                          <i class="mdi mdi-file-document-outline"></i></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-auto">
+                <button type="submit" class="btn btn-primary btn-rounded chat-send w-md"><span
+                    class="d-none d-sm-inline-block mr-2">Send</span> <i class="ml-2 mdi mdi-send"></i></button>
+              </div>
+            </form>
+          </div>
+        </div>
+     
+    
+  

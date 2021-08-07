@@ -1,0 +1,120 @@
+<div class="container-fluid">
+
+  <!-- start page title -->
+  <app-page-title title="{{title}}" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  <!-- end page title -->
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card" style=" max-width:1000px !important;
+      margin:0 auto !important;">
+        <div class="card-body">
+          <h4 class="card-title mb-4">Create New Task</h4>
+          <form (ngSubmit)="typeSubmit()" [formGroup]="typeValidationForm">
+            <div data-repeater-list="outer-group" class="outer">
+              <div data-repeater-item class="outer">
+                <div class="row mb-4">
+                  <label for="taskname" class="col-form-label col-lg-2">Task Name</label>
+                  <div class="col-lg-10">
+                    <input id="taskname" name="taskname" type="text" class="form-control"
+                      placeholder="Enter Task Name..." formControlName="task_name"
+                      [ngClass]="{'is-invalid': typesubmit && type.task_name.errors}">
+                      <div *ngIf="typesubmit && type.task_name.errors" class="invalid-feedback">
+                        <span *ngIf="type.task_name.errors.required"> Name is required.</span>
+                      </div>
+                  </div>
+                </div>
+                <div class="row mb-4">
+                  <label class="col-form-label col-lg-2">Task Description</label>
+                  <div class="col-lg-10">
+                    <ckeditor [editor]="Editor" data="<p>Content of the editor.</p>"
+                      formControlName="task_description"
+                    [ngClass]="{'is-invalid': typesubmit && type.task_description.errors}"></ckeditor>
+                    <div *ngIf="typesubmit && type.task_description.errors" class="invalid-feedback">
+                      <span *ngIf="type.task_description.errors.required"> Description is required.</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-4">
+                  <label class="col-form-label col-lg-2">Task End Date</label>
+                  <div class="col-lg-10">
+                    <div class="input-group clockpicker ">
+                      <input ngbDatepicker class="form-control" placeholder="yyyy-mm-dd" #d="ngbDatepicker"   formControlName="date"  onkeydown="return false"
+                      [ngClass]="{'is-invalid': typesubmit && type.date.errors}"/>
+                      <div class="input-group-append" (click)="d.toggle()"  >
+                        <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                      </div>
+                    </div>
+                    <div *ngIf="typesubmit && type.date.errors" class="invalid-feedback">
+                      <span *ngIf="type.date.errors.required"> Date is required.</span>
+                    </div>
+                  </div>
+                 
+                </div>
+                <div class="row mb-4">
+                  <label for="taskname" class="col-form-label col-lg-2">Task Type</label>
+                  <div class="col-lg-10">
+                    <ng-select [items]="types"  placeholder="Enter task type..." formControlName="type_id" bindLabel="type_name" bindValue="type_id" [ngClass]="{'is-invalid': typesubmit && type.type_id.errors}"></ng-select>
+                  <div *ngIf="typesubmit && type.type_id.errors" class="invalid-feedback">
+                    <span *ngIf="type.type_id.errors.required">Task Type is required.</span>
+                  </div>
+                  </div>
+                </div>
+                <!-- <div class="inner-repeater mb-4">
+                  <form [formGroup]="form">
+                    <div class="inner mb-0 row" formArrayName="member">
+                      <label class="col-form-label col-lg-2">Add Team Member</label>
+                      <div class="inner col-lg-10 ms-md-auto" *ngFor="let data of member.controls; index as i;">
+                        <div class="mb-3 row align-items-center">
+                          <div class="col-md-6">
+                            <input type="text" [formControlName]="i" class="inner form-control"
+                              placeholder="Enter Name..." />
+                          </div>
+                          <div class="col-md-4">
+                            <div class="mt-4 mt-md-0">
+                              <input class="form-control" type="file">
+                            </div>
+                          </div>
+                          <div class="col-md-2">
+                            <div class="mt-2 mt-md-0 d-grid">
+                              <input type="button" class="btn btn-primary inner" value="Delete"
+                                (click)="deleteMember(i)" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  <div class="row justify-content-end">
+                    <div class="col-lg-10">
+                      <input data-repeater-create type="button" class="btn btn-success inner" value="Add Member"
+                        (click)="addMember()" />
+                    </div>
+                  </div>
+                </div> -->
+                <!-- <div class="row mb-4">
+                  <label for="taskbudget" class="col-form-label col-lg-2">Budget</label>
+                  <div class="col-lg-10">
+                    <input id="taskbudget" name="taskbudget" type="text" placeholder="Enter Task Budget..."
+                      class="form-control">
+                  </div>
+                </div> -->
+              </div>
+            </div>
+            <div class="row justify-content-end">
+              <div class="col-lg-10">
+                <button type="submit" class="btn btn-primary" *ngIf="id==''">Create Task</button>
+                <button type="submit" class="btn btn-primary" *ngIf="id!=''">Edit Task</button>
+              </div>
+            </div>
+          </form>
+          
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end row -->
+
+</div> <!-- container-fluid -->

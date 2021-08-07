@@ -1,0 +1,84 @@
+<div class="container-fluid">
+
+  <!-- start page title -->
+  <app-page-title title="{{title}}" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  <!-- end page title -->
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card" style=" max-width:1000px !important;
+      margin:0 auto !important;">
+        <div class="card-body">
+          <h4 class="card-title mb-4">{{title}}</h4>
+          <form (ngSubmit)="typeSubmit()" [formGroup]="typeValidationForm">
+            <div class="row mb-4">
+              <label for="projectname" class="col-form-label col-lg-2">Project Name</label>
+              <div class="col-lg-10">
+                <input id="projectname" name="projectname" type="text" class="form-control" formControlName="project_name"
+                [ngClass]="{'is-invalid': typesubmit && type.project_name.errors}"
+                  placeholder="Enter Project Name...">
+                  <div *ngIf="typesubmit && type.project_name.errors" class="invalid-feedback">
+                    <span *ngIf="type.project_name.errors.required"> Name is required.</span>
+                  </div>
+              </div>
+            </div>
+            <div class="row mb-4">
+              <label for="projectdesc" class="col-form-label col-lg-2">Project Description</label>
+              <div class="col-lg-10">
+                <textarea class="form-control" id="projectdesc" rows="3" formControlName="project_description"
+                [ngClass]="{'is-invalid': typesubmit && type.project_description.errors}"
+                  placeholder="Enter Project Description..."></textarea>
+                  <div *ngIf="typesubmit && type.project_description.errors" class="invalid-feedback">
+                    <span *ngIf="type.project_description.errors.required"> Description is required.</span>
+                  </div>
+              </div>
+            </div>
+
+            <div class="row mb-4">
+              <label class="col-form-label col-lg-2">Project Date</label>
+              <div class="col-lg-10">
+                <ng-template #t let-date let-focused="focused" >
+                  <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date)"
+                    [class.faded]="isHovered(date) || isInside(date)" (mouseenter)="hoveredDate = date"
+                    (mouseleave)="hoveredDate = null">
+                    {{ date.day }}
+                  </span>
+                </ng-template>
+
+                <input type="text"  formControlName="date"  onkeydown="return false"
+                [ngClass]="{'is-invalid': typesubmit && type.date.errors}" class="form-control date" (click)="hidden=!hidden" name="daterange"
+                  autocomplete="off" [(ngModel)]="selected" />
+                  <div *ngIf="typesubmit && type.date.errors" class="invalid-feedback">
+                    <span *ngIf="type.date.errors.required"> Date is required.</span>
+                  </div>
+                <ngb-datepicker #dp (dateSelect)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t"
+                  outsideDays="hidden" [hidden]="hidden">
+                </ngb-datepicker>
+              </div>
+            </div>
+
+            <div class="row mb-4">
+              <label for="users" class="col-form-label col-lg-2">Team Members</label>
+              <div class="col-lg-10">
+                <ng-select [items]="users"  placeholder="Search for team members..." formControlName="users" bindLabel="name" bindValue="user_id" multiple=true [ngClass]="{'is-invalid': typesubmit && type.users.errors}"></ng-select>
+                  <div *ngIf="typesubmit && type.users.errors" class="invalid-feedback">
+                    <span *ngIf="type.users.errors.required">Team Members is required.</span>
+                  </div>
+              </div>
+            </div>
+            <div class="row justify-content-end">
+              <div class="col-lg-10">
+                <button type="submit" class="btn btn-primary" *ngIf="id==''">Create Project</button>
+                <button type="submit" class="btn btn-primary" *ngIf="id!=''">Edit Project</button>
+              </div>
+            </div>
+          </form>
+        
+         
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end row -->
+
+</div> <!-- container-fluid -->
