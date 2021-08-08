@@ -41,7 +41,6 @@ export class UserComponent implements OnInit {
     this.typeValidationForm = this.formBuilder.group({
       user_id:0,
       name: ['', [Validators.required]],
-      // contact_name:['',[Validators.required]],
       mobile:['',[Validators.required,Validators.pattern('[0-9]{9,10}')]],
       email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
       password: ['', [this.conditionalrequiredValidator(this.title), Validators.minLength(10),Validators.pattern('^(?=(.*[a-zA-Z]){1,})(?=(.*[!@#$%^&*()_+|~=\`<{}:;’>?,./\"]){1,})(?=(.*[0-9]){1,}).{1,}$')]],
