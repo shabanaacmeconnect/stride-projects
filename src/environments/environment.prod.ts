@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   defaultauth: 'fackbackend',
-  baseurl:'http://bankfab.marshal-me.com/spm/',
+  baseurl:'https://bankfab.marshal-me.com/spm/',
   firebaseConfig: {
     apiKey: '',
     authDomain: '',
